@@ -1,0 +1,383 @@
+{
+  "total_remaining_errors": 30,
+  "bucket_counts": {
+    "rubric_ambiguity": 13,
+    "overgenerous_full_credit": 14,
+    "almost_vs_partial_boundary": 2,
+    "reasoning_or_comprehension_failure": 1
+  },
+  "main_bottleneck": "overgenerous_full_credit",
+  "prompt_fixable_count": 29,
+  "model_limited_count": 1,
+  "likely_diminishing_returns": false,
+  "examples_by_bucket": {
+    "rubric_ambiguity": [
+      {
+        "grading_id": "GB-0658",
+        "problem_id": "PB-Advanced-020",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "almost",
+        "final_prediction": "partial",
+        "ablation_prediction": "partial",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Considered a prime $p|xy+1$. (Almost)  1. Solution is almost complete, but made minor mistakes which are not negligible.  2. Omitted the case when $xy+1$ doesn't have an odd prime factor.",
+        "student_snippet": "The sequence $(a_n)_{n \\ge 1}$ is defined by $$  a_n = \\gcd \\left( x^n +y , \\, (y-x)\\left(\\sum_{i=0}^{n-1} y^i x^{n-i-1} - 1\\right) \\right). $$ Since $(a_n)$ is a sequence of positive integers, its limit exists if and only if the sequence is eventually constan"
+      },
+      {
+        "grading_id": "GB-0529",
+        "problem_id": "PB-Advanced-016",
+        "ground_truth": "partial",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "incorrect",
+        "final_prediction": "incorrect",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Proved that $U, V$, and $L$ lie on a same line. (Almost)  1. Made a minor mistake at the proof, or made a small gap.",
+        "student_snippet": "**Complete Proof**  We use directed angles modulo $180^\\circ$, denoted by $(L_1, L_2)$.  **Part 1: Setup and Key Angles**  Let $I$ be the incenter of the non-isosceles triangle $ABC$. Let $L$ be the point on $BC$ such that $IL \\perp AI$. Since $AI$ is the inte"
+      },
+      {
+        "grading_id": "GB-0346",
+        "problem_id": "PB-Advanced-011",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "partial",
+        "ablation_prediction": "correct",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Considered $(x,y) = (c+1, \\frac{c}{f(c+1)})$.  2. Proved that $f$ is subjective. (Almost)  1. Proved that $f$ is injective.",
+        "student_snippet": "We are asked to find all functions $f: \\mathbb{R}^+ \\to \\mathbb{R}^+$ such that for all $x, y \\in \\mathbb{R}^+$, $$yf(yf(x)+1) = f\\left(\\frac{1}{x} + f(y)\\right)$$ Let $P(x, y)$ be the assertion $yf(yf(x)+1) = f(\\frac{1}{x} + f(y))$.  **Step 1: Test a candidat"
+      },
+      {
+        "grading_id": "GB-0335",
+        "problem_id": "PB-Advanced-011",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "partial",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Considered $(x,y) = (c+1, \\frac{c}{f(c+1)})$.  2. Proved that $f$ is subjective. (Almost)  1. Proved that $f$ is injective.",
+        "student_snippet": "We are looking for all functions $f: \\mathbb{R}^+ \\to \\mathbb{R}^+$ such that $$yf(yf(x)+1) = f\\left(\\frac{1}{x} + f(y)\\right) \\quad (*)$$ for all $x, y \\in \\mathbb{R}^+$. Let $P(x, y)$ be the assertion $(*)$.  **Step 1: Analyze the asymptotic behavior of $f$."
+      },
+      {
+        "grading_id": "GB-0358",
+        "problem_id": "PB-Advanced-012",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "partial",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "partial",
+        "ablation_prediction": "partial",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Observed and verified that $x^2=y^4+z^4$ has no nontrivial solution  2. Transformed the equation $p^3=a^4+b^4$ into $p=c^2+d^2, a^2=c(c^2-3d^2), b^2=d(3c^2-d^2)$ (Almost)  1. Transformed the given equation ",
+        "student_snippet": "We are given the equation $p^n = a^4+b^4$, where $p$ is a prime number, $a, b$ are positive integers, and $n \\geq 2$. We want to prove that $n \\geq 5$.  **Step 1: Reduction to the coprime case**  Let $d = \\gcd(a, b)$. We can write $a=da'$ and $b=db'$ such that"
+      },
+      {
+        "grading_id": "GB-0618",
+        "problem_id": "PB-Advanced-018",
+        "ground_truth": "partial",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "incorrect",
+        "final_prediction": "incorrect",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Guessed $L=3$ and then explained the strategy of the proof (namely, explained how one can obtain lower and upper bound of $a(n)$ ).  2. Partitioned the given grid into squares of size of order $\\sqrt{n} \\ti",
+        "student_snippet": "We are asked to find a constant $L$ such that $|La(n)- n^2 | \\le n +2 \\sqrt n + 3$ for $n \\ge 5$, where $a(n)$ is the minimum number of colors $k$ such that any balanced $k$-coloring of the $n \\times n$ grid guarantees a snake of length $n$.  1. Determining $a"
+      },
+      {
+        "grading_id": "GB-0492",
+        "problem_id": "PB-Advanced-015",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "partial",
+        "ablation_prediction": "correct",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Let $V, W$ be the points where the incircle of $\\triangle ABC$ tangent to $AB,AC$, respectively. Then, proved that circumcircles of $ABC$, $AVW$, and $AEF$ meet simultaneosly at a point $P$ other than $A$. ",
+        "student_snippet": "The proof relies on interpreting the geometric condition and applying several known theorems from advanced Euclidean geometry related to mixtilinear circles and specific triangle configurations.  Step 1: Analyze the condition that $EF$ is tangent to the incirc"
+      },
+      {
+        "grading_id": "GB-0605",
+        "problem_id": "PB-Advanced-018",
+        "ground_truth": "partial",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "incorrect",
+        "final_prediction": "incorrect",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Guessed $L=3$ and then explained the strategy of the proof (namely, explained how one can obtain lower and upper bound of $a(n)$ ).  2. Partitioned the given grid into squares of size of order $\\sqrt{n} \\ti",
+        "student_snippet": "Outcome 2: STRUCTURED PARTIAL PROGRESS & ANALYSIS  We are tasked with finding a constant $L$ such that $|La(n)- n^2 | \\le R(n)$, where $R(n) = n + 2 \\sqrt n + 3$, for all $n \\ge 5$. This requires determining the asymptotic behavior of $a(n)$, the minimum numbe"
+      },
+      {
+        "grading_id": "GB-0841",
+        "problem_id": "PB-Advanced-026",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "partial",
+        "ablation_prediction": "partial",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. (WLOG assumed $n=k+1$ and) proved that two different divisors of $P$ share the position of a zero coefficient.  2. Found a polynomial with only distinct real roots and has two consecutive zero coefficients.",
+        "student_snippet": "Let $P(x)$ be a polynomial of degree $n$ with real coefficients, a nonzero constant term $P(0) \\neq 0$, and no repeated roots. Let $k$ be a positive integer with $k < n$. We are given that for any real polynomial $Q(x) = a_k x^k + \\dots + a_1 x + a_0$ that div"
+      },
+      {
+        "grading_id": "GB-0612",
+        "problem_id": "PB-Advanced-018",
+        "ground_truth": "partial",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "incorrect",
+        "final_prediction": "incorrect",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Guessed $L=3$ and then explained the strategy of the proof (namely, explained how one can obtain lower and upper bound of $a(n)$ ).  2. Partitioned the given grid into squares of size of order $\\sqrt{n} \\ti",
+        "student_snippet": "We are asked to find a constant $L$ such that for $n \\ge 5$, the inequality $|La(n)- n^2 | \\le n +2 \\sqrt n + 3$ holds, where $a(n)$ is the minimum number of colors $k$ required to guarantee a snake of length $n$ in any balanced coloring of an $n \\times n$ gri"
+      },
+      {
+        "grading_id": "GB-0704",
+        "problem_id": "PB-Advanced-021",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "partial",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "partial",
+        "ablation_prediction": "partial",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Proved that there are only finitely many integers that appear infinitely many times in $\\{b_{n}\\}\\cup\\{g_{n}\\}$.  2. Came up with multiple observations that may lead to the proof, but failed to rigorously c",
+        "student_snippet": "This proof is structured around two main claims. Let $x_m$ be the number chosen by the $m$-th person. $b_n = x_{2n-1}$ (boys) and $g_n = x_{2n}$ (girls). The rule for $m>N$ is $x_m = 1 + C_{m-2}(x_{m-1})$, where $C_k(y)$ counts the occurrences of $y$ in $x_1, "
+      },
+      {
+        "grading_id": "GB-0617",
+        "problem_id": "PB-Advanced-018",
+        "ground_truth": "partial",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "incorrect",
+        "final_prediction": "incorrect",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Guessed $L=3$ and then explained the strategy of the proof (namely, explained how one can obtain lower and upper bound of $a(n)$ ).  2. Partitioned the given grid into squares of size of order $\\sqrt{n} \\ti",
+        "student_snippet": "We want to find a constant $L$ such that $|La(n)- n^2 | \\le n +2 \\sqrt n + 3$ for all $n \\ge 5$, where $a(n)$ is the minimum number of colors $k$ required so that any balanced coloring of the $n \\times n$ grid guarantees a snake of length $n$.  The inequality "
+      },
+      {
+        "grading_id": "GB-0606",
+        "problem_id": "PB-Advanced-018",
+        "ground_truth": "partial",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "incorrect",
+        "final_prediction": "incorrect",
+        "ablation_prediction": "incorrect",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Guessed $L=3$ and then explained the strategy of the proof (namely, explained how one can obtain lower and upper bound of $a(n)$ ).  2. Partitioned the given grid into squares of size of order $\\sqrt{n} \\ti",
+        "student_snippet": "To find the constant $L$, we must first determine the asymptotic behavior of $a(n)$. The inequality $|La(n) - n^2| \\le n + 2\\sqrt{n} + 3$ implies that $La(n)$ must be close to $n^2$. Specifically, it implies $n^2 - (n+2\\sqrt{n}+3) \\le La(n) \\le n^2 + n+2\\sqrt{"
+      }
+    ],
+    "overgenerous_full_credit": [
+      {
+        "grading_id": "GB-0669",
+        "problem_id": "PB-Advanced-020",
+        "ground_truth": "partial",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Considered a prime $p|xy+1$. (Almost)  1. Solution is almost complete, but made minor mistakes which are not negligible.  2. Omitted the case when $xy+1$ doesn't have an odd prime factor.",
+        "student_snippet": "We are given a sequence $(a_n)_{n \\ge 1}$ defined by $$  a_n = \\gcd \\left( x^n +y , \\, (y-x)\\left(\\sum_{i=0}^{n-1} y^i x^{n-i-1} - 1\\right) \\right) $$ for positive integers $x$ and $y$. We want to find all pairs $(x,y)$ such that the limit of $(a_n)$ exists. S"
+      },
+      {
+        "grading_id": "GB-0978",
+        "problem_id": "PB-Advanced-030",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 3,
+        "guidelines_snippet": "(Partial)  1. Observed that when an arc with scores smaller than $1$ to some person $X$ is deleted, the problem condition still holds for $X$.  2. Applied Hall's theorem to the arcs of a fixed person and the $n$ people. ",
+        "student_snippet": "We prove the statement by induction on the number of people $n$.  Let $C$ be the set of $m$ cupcakes, and $\\mathcal{P} = \\{P_1, \\dots, P_n\\}$ be the set of people. Let $V_i(A)$ denote the score $P_i$ assigns to a subset $A \\subseteq C$.  **Preparation: WLOG As"
+      },
+      {
+        "grading_id": "GB-0672",
+        "problem_id": "PB-Advanced-020",
+        "ground_truth": "partial",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Considered a prime $p|xy+1$. (Almost)  1. Solution is almost complete, but made minor mistakes which are not negligible.  2. Omitted the case when $xy+1$ doesn't have an odd prime factor.",
+        "student_snippet": "The sequence is defined as $a_n = \\gcd \\left( x^n +y , \\, (y-x)\\left(\\sum_{i=0}^{n-1} y^i x^{n-i-1} - 1\\right) \\right)$. The limit of the sequence $(a_n)$ exists if and only if the sequence is eventually constant, since $a_n$ are positive integers.  Case 1: $x"
+      },
+      {
+        "grading_id": "GB-0042",
+        "problem_id": "PB-Advanced-002",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "partial",
+        "final_distance": 3,
+        "guidelines_snippet": "(Partial)  1. Proved there must be some $A \\in F$ such that $\\left\\{A_{1}, \\cdots A_{t}\\right\\} \\subset \\cup_{i=0}^{\\infty}\\left\\{f^{i}(A)\\right\\}$.  2. Considered the non-intersecting cycles (Almost)  1.  Introduced a q",
+        "student_snippet": "Let $S$ be the set of 120 students, so $n=|S|=120$. The love relationships define a directed graph $G=(S, E)$. The function $f: 2^S \\rightarrow 2^S$ is defined such that for $X \\subseteq S$, $f(X)$ is the set of students loved by at least one student in $X$. T"
+      },
+      {
+        "grading_id": "GB-0131",
+        "problem_id": "PB-Advanced-005",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 3,
+        "guidelines_snippet": "(Partial)  1. Constructed $D$ and found $\\theta$ correctly.  2. Found the necessary and sufficient conditions for the existence of isogonal conjugate in quadrilateral. (Almost)  1. Verification contains minor mistakes on",
+        "student_snippet": "This proof utilizes the properties of conic sections, specifically concerning the envelope of a line segment subtending a constant angle at a fixed point.  Let $\\alpha = \\angle XYZ$. We are given that $\\alpha$ is acute ($0^\\circ < \\alpha < 90^\\circ$) and $\\alp"
+      },
+      {
+        "grading_id": "GB-0577",
+        "problem_id": "PB-Advanced-017",
+        "ground_truth": "almost",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Proved $c\\ge 3$. (Almost)  1. Applied infinite descent or equivalent strategy to prove $c=3$, but not completed.",
+        "student_snippet": "**Complete Proof**  We are given a positive integer $n$ such that $n \\equiv 6 \\equiv -1 \\pmod 7$. Let $d$ be a divisor of $n$, and let $d' = n/d$. We are given that $S = (d+d')^2$ has a remainder of $n-c$ when divided by $n$. We seek the minimum positive value"
+      },
+      {
+        "grading_id": "GB-0439",
+        "problem_id": "PB-Advanced-013",
+        "ground_truth": "almost",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Tried to apply induction in an appropriate direction.  2. Found any localization inequality, e.g., the one equivalent to the Lemma of solution.  (Almost)  1. Verification contains minor mistakes only.",
+        "student_snippet": "Here is a detailed proof of the inequality.  We are given $n \\geq 2$, and positive real numbers $a_{1} \\leq a_{2} \\leq \\cdots \\leq a_{n}$ such that $\\prod_{k=1}^{n} a_{k}=1$. We define $b_{k}=2^{k}\\left(1+a_{k}^{2^{k}}\\right)$. We want to prove: \\[ \\sum_{k=1}^"
+      },
+      {
+        "grading_id": "GB-0169",
+        "problem_id": "PB-Advanced-006",
+        "ground_truth": "partial",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Proved $f(f(x))=f(x)$.  2. Handled the case where $f\\subseteq \\{-1, 0, 1\\}$.  3. Handled the case where $f\\not \\subset \\{-1, 0, 1\\}$. (Almost)  1. Verification contains minor mistakes only.",
+        "student_snippet": "We are looking for all functions $f:\\mathbb{Z}\\rightarrow\\mathbb{Z}$ satisfying the equation: \\[ f(x-f(xy))=f(x)f(1-y) \\quad (*) \\] for all $x,y\\in\\mathbb{Z}$. Let $P(x, y)$ denote this assertion.  ### 1. Constant Solutions  If $f(x)=c$ for all $x \\in \\mathbb{"
+      },
+      {
+        "grading_id": "GB-0579",
+        "problem_id": "PB-Advanced-017",
+        "ground_truth": "almost",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Proved $c\\ge 3$. (Almost)  1. Applied infinite descent or equivalent strategy to prove $c=3$, but not completed.",
+        "student_snippet": "Here is a step-by-step solution.  **1. Setting up the Mathematical Framework**  We are given a positive integer $n$ such that $n \\equiv 6 \\pmod 7$. Let $d$ be a divisor of $n$, and let $k = n/d$. Both $d$ and $k$ are positive integers, and $n=dk$.  We are cons"
+      },
+      {
+        "grading_id": "GB-0433",
+        "problem_id": "PB-Advanced-013",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "incorrect",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 3,
+        "guidelines_snippet": "(Partial)  1. Tried to apply induction in an appropriate direction.  2. Found any localization inequality, e.g., the one equivalent to the Lemma of solution.  (Almost)  1. Verification contains minor mistakes only.",
+        "student_snippet": "We are asked to prove the inequality \\[  \\frac{1}{b_{1}}+\\frac{1}{b_{2}}+\\cdots+\\frac{1}{b_{n}} \\geq \\frac{1}{2}-\\frac{1}{2^{n+1}} \\] where $n \\geq 2$, $a_{1} \\leq a_{2} \\leq \\cdots \\leq a_{n}$ are positive real numbers satisfying $\\prod_{k=1}^{n} a_{k}=1$, an"
+      },
+      {
+        "grading_id": "GB-0231",
+        "problem_id": "PB-Advanced-008",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "correct",
+        "ablation_prediction": "incorrect",
+        "final_distance": 3,
+        "guidelines_snippet": "(Partial)  1. Obtained a period of $F_n \\pmod c$.  2. Showed that the period is not a multiple of $n$. (Almost)  1. Verification contains minor mistakes only.",
+        "student_snippet": "We are asked to prove that for any positive integers $a, c$ and integer $b$, there exists a positive integer $n$ such that $\\frac{a^{F_{n}}+n-b}{c}$ is an integer. This is equivalent to showing that the congruence $a^{F_n}+n \\equiv b \\pmod c$ has a solution fo"
+      },
+      {
+        "grading_id": "GB-0959",
+        "problem_id": "PB-Advanced-029",
+        "ground_truth": "partial",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Proved that $k$ should be even.  2. Used the induction on $n+1$ and considered the equation for$\\frac{n+1}{p}$.  3. Stated the identity $n+1\\mid\\sum_{i=0}^{n}\\left((-1)^{i}\\binom{n}{i}\\right)^{k}$ without p",
+        "student_snippet": "Let the given expression be denoted by $A_k(n)$, where \\[ A_k(n) = \\frac{1}{n+1}\\sum_{i=0}^{n}\\binom{n}{i}^{k}. \\] We want to determine all positive integers $k$ such that $A_k(n)$ is an integer for every positive integer $n$. This condition is equivalent to r"
+      },
+      {
+        "grading_id": "GB-0675",
+        "problem_id": "PB-Advanced-020",
+        "ground_truth": "almost",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Considered a prime $p|xy+1$. (Almost)  1. Solution is almost complete, but made minor mistakes which are not negligible.  2. Omitted the case when $xy+1$ doesn't have an odd prime factor.",
+        "student_snippet": "To find all pairs of positive integers $(x,y)$ for which the limit of the sequence $(a_n)$ exists, we first simplify the definition of $a_n$. The sequence is defined as $$ a_n = \\gcd \\left( x^n +y , \\, (y-x)\\left(\\sum_{i=0}^{n-1} y^i x^{n-i-1} - 1\\right) \\righ"
+      },
+      {
+        "grading_id": "GB-0775",
+        "problem_id": "PB-Advanced-023",
+        "ground_truth": "partial",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "correct",
+        "final_prediction": "correct",
+        "ablation_prediction": "correct",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Proved that the answer is at least $3$.  2. Solved the case where the stone in the second row is not on the edge. (Almost)  1. Solved the case where the stone in the second row is on the edge.  2. Solution ",
+        "student_snippet": "Let $R=3002$ be the number of rows and $C=3001$ be the number of columns. There are $K=3000$ stones placed by Peter, one in each row $r \\in \\{2, \\dots, R-1\\}$, and at most one in each column. James starts at $(1, 1)$ and aims to reach row $R$.  We assume that "
+      }
+    ],
+    "almost_vs_partial_boundary": [
+      {
+        "grading_id": "GB-0367",
+        "problem_id": "PB-Advanced-012",
+        "ground_truth": "partial",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "almost",
+        "final_prediction": "almost",
+        "ablation_prediction": "almost",
+        "final_distance": 1,
+        "guidelines_snippet": "(Partial)  1. Observed and verified that $x^2=y^4+z^4$ has no nontrivial solution  2. Transformed the equation $p^3=a^4+b^4$ into $p=c^2+d^2, a^2=c(c^2-3d^2), b^2=d(3c^2-d^2)$ (Almost)  1. Transformed the given equation ",
+        "student_snippet": "Let the given equation be $p^n = a^4+b^4$ for a prime $p$, positive integers $a, b$ and an integer $n \\geq 2$.  Step 1: Reduce to the case where $\\gcd(a,b)=1$. Let $d = \\gcd(a,b)$. We can write $a = dx$ and $b = dy$ for some positive integers $x,y$ with $\\gcd("
+      },
+      {
+        "grading_id": "GB-0343",
+        "problem_id": "PB-Advanced-011",
+        "ground_truth": "incorrect",
+        "baseline_prediction": "correct",
+        "guideline_gate_prediction": "almost",
+        "final_prediction": "almost",
+        "ablation_prediction": "partial",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Considered $(x,y) = (c+1, \\frac{c}{f(c+1)})$.  2. Proved that $f$ is subjective. (Almost)  1. Proved that $f$ is injective.",
+        "student_snippet": "We are looking for all functions $f: \\mathbb{R}^+ \\to \\mathbb{R}^+$ such that for all $x, y \\in \\mathbb{R}^+$, $$yf(yf(x)+1) = f\\left(\\frac{1}{x} + f(y)\\right)$$ Let $P(x, y)$ be the assertion $yf(yf(x)+1) = f(\\frac{1}{x} + f(y))$.  First, let's test for a sol"
+      }
+    ],
+    "reasoning_or_comprehension_failure": [
+      {
+        "grading_id": "GB-0064",
+        "problem_id": "PB-Advanced-002",
+        "ground_truth": "correct",
+        "baseline_prediction": "partial",
+        "guideline_gate_prediction": "partial",
+        "final_prediction": "partial",
+        "ablation_prediction": "partial",
+        "final_distance": 2,
+        "guidelines_snippet": "(Partial)  1. Proved there must be some $A \\in F$ such that $\\left\\{A_{1}, \\cdots A_{t}\\right\\} \\subset \\cup_{i=0}^{\\infty}\\left\\{f^{i}(A)\\right\\}$.  2. Considered the non-intersecting cycles (Almost)  1.  Introduced a q",
+        "student_snippet": "Let $S$ be the set of 120 students, and $F = 2^S$ be the power set of $S$. The function $f: F \\rightarrow F$ is defined as $f(X) = \\bigcup_{u \\in X} N(u)$, where $N(u)$ is the set of students loved by student $u$. This defines a directed graph $G=(S,E)$ where "
+      }
+    ]
+  }
+}

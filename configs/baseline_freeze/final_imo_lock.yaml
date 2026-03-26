@@ -1,0 +1,68 @@
+study_type: final_imo_lock
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+parser_version: frozen proofgrade parser and grading policy package
+validation_dataset_path: domains/imo/gradingbench_filtered_100_val.csv
+test_dataset_path: domains/imo/gradingbench_filtered_100_test.csv
+validation_protocol: four disjoint 25-example validation shards from gradingbench_filtered_100_val.csv
+test_protocol: one-time full 100-example untouched test evaluation after validation lock and ablation
+output_root: analysis/outputs/final_imo_lock
+ablation_output_root: analysis/outputs/final_imo_lock/validation_ablation
+summary_path: analysis/outputs/final_imo_lock/ablation_summary.json
+report_path: artifacts/release/v0.1.0/generated/final_imo_lock_and_ablation.md
+remaining_error_summary_path: analysis/outputs/final_imo_lock/final_remaining_error_summary.json
+remaining_error_report_path: artifacts/release/v0.1.0/generated/final_imo_ceiling_and_remaining_errors.md
+reuse_summaries:
+  robustness: analysis/outputs/direct_imo_robustness/robustness_summary.json
+  followup: analysis/outputs/direct_imo_followup/followup_summary.json
+save_interval: 5
+bootstrap_iterations: 10000
+bootstrap_seed: 0
+baseline_variant: baseline
+original_gate_variant: guideline_gate_v1
+final_winner_variant: guideline_gate_almost_boundary_v1
+ablation_variant: guideline_gate_no_top_end_guard_v1
+variants:
+  - id: baseline
+    role: frozen_baseline
+    env_value: baseline
+    source_summary: robustness
+    hypothesis: Frozen pre-improvement prompt.
+  - id: guideline_gate_v1
+    role: original_gate
+    env_value: guideline_gate_v1
+    source_summary: robustness
+    hypothesis: Original hidden guideline gate.
+  - id: guideline_gate_almost_boundary_v1
+    role: final_winner
+    env_value: guideline_gate_almost_boundary_v1
+    source_summary: followup
+    hypothesis: Tightened almost-vs-partial boundary on top of the guideline gate.
+  - id: guideline_gate_no_top_end_guard_v1
+    role: ablation_only
+    env_value: guideline_gate_no_top_end_guard_v1
+    hypothesis: Remove only the top-end full-credit restraint while keeping the tightened almost-boundary rule.
+pairwise_comparisons:
+  - name: baseline_to_guideline_gate_v1
+    from: baseline
+    to: guideline_gate_v1
+  - name: guideline_gate_v1_to_guideline_gate_almost_boundary_v1
+    from: guideline_gate_v1
+    to: guideline_gate_almost_boundary_v1
+  - name: guideline_gate_almost_boundary_v1_to_guideline_gate_no_top_end_guard_v1
+    from: guideline_gate_almost_boundary_v1
+    to: guideline_gate_no_top_end_guard_v1
+shards:
+  - name: val_00_24
+    start: 0
+    end: 25
+  - name: val_25_49
+    start: 25
+    end: 50
+  - name: val_50_74
+    start: 50
+    end: 75
+  - name: val_75_99
+    start: 75
+    end: 100

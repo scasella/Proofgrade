@@ -1,0 +1,43 @@
+study_type: followup
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+dataset_path: domains/imo/gradingbench_filtered_100_val.csv
+output_root: analysis/outputs/direct_imo_followup
+report_path: reports/direct_imo_followup_variant.md
+summary_path: analysis/outputs/direct_imo_followup/followup_summary.json
+parser_version: current repaired parser in utils/prediction_contracts.py
+subset_policy: same four disjoint 25-example validation shards as the robustness study
+save_interval: 5
+bootstrap_iterations: 10000
+bootstrap_seed: 0
+baseline_variant: baseline
+reference_variant: guideline_gate_v1
+robustness_summary_path: analysis/outputs/direct_imo_robustness/robustness_summary.json
+error_boundary_summary_path: analysis/outputs/direct_imo_robustness/error_boundary_summary.json
+variants:
+  - id: baseline
+    role: baseline
+    hypothesis: Frozen pre-improvement prompt.
+  - id: guideline_gate_v1
+    role: current_winner
+    hypothesis: Current default hidden guideline gate.
+  - id: guideline_gate_almost_boundary_v1
+    role: candidate
+    hypothesis: Tighten the `almost` versus `partial` boundary so only one-gap proofs get `almost`.
+  - id: guideline_gate_fatal_flaw_v1
+    role: candidate
+    hypothesis: Add a fatal-flaw pre-check before awarding `correct` or `almost`.
+shards:
+  - name: val_00_24
+    start: 0
+    end: 25
+  - name: val_25_49
+    start: 25
+    end: 50
+  - name: val_50_74
+    start: 50
+    end: 75
+  - name: val_75_99
+    start: 75
+    end: 100

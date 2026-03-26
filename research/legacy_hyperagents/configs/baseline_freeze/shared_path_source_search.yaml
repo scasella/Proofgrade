@@ -1,0 +1,15 @@
+name: shared_path_source_search
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+allowlist_path: /Users/scasella/Downloads/hyperagents/HyperAgents/configs/baseline_freeze/shared_path_allowlist.yaml
+output_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_path_transfer
+source_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/shared_path_source_results.md
+source_domain: paper_review
+source_subset: _filtered_100_val
+source_screen_samples: 10
+source_confirm_samples: 25
+eval_model: gemini-3-flash-preview
+meta_search_model: gemini-3-flash-preview
+num_workers: 1
+save_interval: 5
+max_attempts: 6
+max_eligible_evaluations: 3

@@ -1,0 +1,4 @@
+use_meta_memory: true
+meta_memory_format: both
+meta_memory_window: 5
+meta_memory_include_patch_labels: true

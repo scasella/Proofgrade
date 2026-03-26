@@ -1,0 +1,32 @@
+name: first_transfer_pilot_gemini_flash_preview
+pilot_type: direct_eval
+source_domain: paper_review
+target_domain: imo_grading
+target_split: _filtered_100_val
+model: gemini-3-flash-preview
+provider: gemini
+preview_max_output_tokens: 2048
+response_mode: application_json
+response_schema_mode: domain_aware_gemini_response_schema
+seed: null
+seed_policy: deterministic_temperature_zero_no_seed
+arms:
+  - id: cold_start_repaired_baseline
+    frozen_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+    run_ids:
+      smoke: first_transfer_baseline_val10_smoke
+      real: first_transfer_baseline_val25
+  - id: transferred_full_agent
+    frozen_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent
+    run_ids:
+      smoke: first_transfer_full_val10_smoke
+      real: first_transfer_full_val25
+unavailable_arms:
+  - id: transferred_meta_only
+    reason: current source delta is not cleanly separable at meta-only granularity
+comparison_metrics:
+  - valid_label_rate
+  - overall_accuracy
+  - normalized_mean_absolute_error
+  - invalid_prediction_count
+  - label_distribution

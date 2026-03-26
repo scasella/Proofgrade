@@ -1,0 +1,9 @@
+selector: meta_patch_density
+top_k: 1
+seed: 42
+target_domain: imo_grading
+meta_categories:
+  - meta-agent policy / reflection / self-modification logic
+  - persistent memory / performance tracking / logging / archive analysis
+  - evaluation analysis / reporting / parsing / output-format robustness
+  - ensembling / selection / archive utilities

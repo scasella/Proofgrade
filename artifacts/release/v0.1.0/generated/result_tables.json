@@ -1,0 +1,98 @@
+{
+  "main_result_rows": [
+    {
+      "split": "Held-out validation (100)",
+      "variant": "baseline",
+      "accuracy": "0.590",
+      "normalized_grading_error": "0.251",
+      "valid_label_rate": "0.990"
+    },
+    {
+      "split": "Held-out validation (100)",
+      "variant": "guideline_gate_almost_boundary_v1",
+      "accuracy": "0.700",
+      "normalized_grading_error": "0.141",
+      "valid_label_rate": "1.000"
+    },
+    {
+      "split": "Untouched test (100)",
+      "variant": "baseline",
+      "accuracy": "0.640",
+      "normalized_grading_error": "0.219",
+      "valid_label_rate": "0.990"
+    },
+    {
+      "split": "Untouched test (100)",
+      "variant": "guideline_gate_almost_boundary_v1",
+      "accuracy": "0.770",
+      "normalized_grading_error": "0.133",
+      "valid_label_rate": "1.000"
+    },
+    {
+      "split": "Fresh filtered remainder (512)",
+      "variant": "baseline",
+      "accuracy": "0.627",
+      "normalized_grading_error": "0.208",
+      "valid_label_rate": "0.986"
+    },
+    {
+      "split": "Fresh filtered remainder (512)",
+      "variant": "guideline_gate_almost_boundary_v1",
+      "accuracy": "0.697",
+      "normalized_grading_error": "0.134",
+      "valid_label_rate": "0.998"
+    }
+  ],
+  "mechanism_rows": [
+    {
+      "comparison": "baseline -> guideline_gate_v1",
+      "accuracy_delta": "0.060",
+      "normalized_grading_error_delta": "-0.096",
+      "changed_predictions": "20",
+      "better": "9",
+      "worse": "3",
+      "corrected_overcredit": "13"
+    },
+    {
+      "comparison": "guideline_gate_v1 -> guideline_gate_almost_boundary_v1",
+      "accuracy_delta": "0.050",
+      "normalized_grading_error_delta": "-0.014",
+      "changed_predictions": "8",
+      "better": "5",
+      "worse": "0",
+      "corrected_overcredit": "2"
+    },
+    {
+      "comparison": "guideline_gate_almost_boundary_v1 -> guideline_gate_no_top_end_guard_v1",
+      "accuracy_delta": "-0.030",
+      "normalized_grading_error_delta": "0.013",
+      "changed_predictions": "11",
+      "better": "2",
+      "worse": "5",
+      "corrected_overcredit": "2"
+    }
+  ],
+  "remaining_error_rows": [
+    {
+      "bucket": "overgenerous_full_credit",
+      "count": "14",
+      "share": "0.467"
+    },
+    {
+      "bucket": "rubric_ambiguity",
+      "count": "13",
+      "share": "0.433"
+    },
+    {
+      "bucket": "almost_vs_partial_boundary",
+      "count": "2",
+      "share": "0.067"
+    },
+    {
+      "bucket": "reasoning_or_comprehension_failure",
+      "count": "1",
+      "share": "0.033"
+    }
+  ],
+  "fresh_available": true
+}

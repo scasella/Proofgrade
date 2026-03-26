@@ -1,0 +1,42 @@
+study_type: final_imo_release
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+parser_version: frozen proofgrade parser and grading policy package
+baseline_variant: baseline
+winner_variant: guideline_gate_almost_boundary_v1
+output_root: artifacts/release/v0.1.0/generated
+tables_json_path: artifacts/release/v0.1.0/generated/result_tables.json
+main_table_md_path: artifacts/release/v0.1.0/generated/main_result_table.md
+mechanism_table_md_path: artifacts/release/v0.1.0/generated/mechanism_ablation_table.md
+error_bucket_md_path: artifacts/release/v0.1.0/generated/error_bucket_table.md
+casebook_json_path: artifacts/release/v0.1.0/generated/casebook.json
+casebook_md_path: artifacts/release/v0.1.0/generated/casebook.md
+report_path: artifacts/release/v0.1.0/generated/final_imo_result_package.md
+artifacts:
+  validation_ablation_summary: artifacts/release/v0.1.0/ablation_summary.json
+  remaining_error_summary: artifacts/release/v0.1.0/final_remaining_error_summary.json
+  lockbox_summary: artifacts/release/v0.1.0/lockbox_summary.json
+  fresh_generalization_summary: artifacts/release/v0.1.0/fresh_generalization_summary.json
+  validation_ablation_report: artifacts/release/v0.1.0/generated/final_imo_lock_and_ablation.md
+  remaining_error_report: artifacts/release/v0.1.0/generated/final_imo_ceiling_and_remaining_errors.md
+  lockbox_report: artifacts/release/v0.1.0/generated/final_imo_lockbox_test.md
+  fresh_generalization_plan_report: artifacts/release/v0.1.0/generated/fresh_generalization_plan.md
+  fresh_generalization_report: artifacts/release/v0.1.0/generated/fresh_generalization_result.md
+  next_step_report: artifacts/release/v0.1.0/generated/model_vs_policy_next_step.md
+commands:
+  - PYTHONPATH=. .venv/bin/python analysis/run_final_imo_ablation.py --config configs/baseline_freeze/final_imo_lock.yaml
+  - PYTHONPATH=. .venv/bin/python analysis/build_final_imo_remaining_error_atlas.py --config configs/baseline_freeze/final_imo_lock.yaml
+  - GEMINI_API_KEY=... GOOGLE_API_KEY=... PYTHONPATH=. .venv/bin/python analysis/run_final_imo_lockbox_test.py --config configs/baseline_freeze/final_imo_lockbox_test.yaml
+  - GEMINI_API_KEY=... GOOGLE_API_KEY=... PYTHONPATH=. .venv/bin/python analysis/run_fresh_generalization_eval.py --config configs/baseline_freeze/fresh_generalization_eval.yaml
+  - PYTHONPATH=. .venv/bin/python analysis/build_imo_result_tables.py --config configs/baseline_freeze/final_imo_release.yaml
+  - PYTHONPATH=. .venv/bin/python analysis/build_imo_casebook.py --config configs/baseline_freeze/final_imo_release.yaml
+variants:
+  - id: baseline
+    role: frozen_baseline
+    env_value: baseline
+    hypothesis: Frozen pre-improvement prompt.
+  - id: guideline_gate_almost_boundary_v1
+    role: frozen_final_winner
+    env_value: guideline_gate_almost_boundary_v1
+    hypothesis: Frozen final winner with top-end restraint and tighter almost-vs-partial calibration.

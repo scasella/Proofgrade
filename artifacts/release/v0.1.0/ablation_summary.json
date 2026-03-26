@@ -1,0 +1,480 @@
+{
+  "model": "gemini-3-flash-preview",
+  "variant_env": "HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT",
+  "parser_version": "frozen proofgrade parser and grading policy package",
+  "validation_protocol": "four disjoint 25-example validation shards from gradingbench_filtered_100_val.csv",
+  "test_protocol": "one-time full 100-example untouched test evaluation after validation lock and ablation",
+  "baseline_variant": "baseline",
+  "original_gate_variant": "guideline_gate_v1",
+  "final_winner_variant": "guideline_gate_almost_boundary_v1",
+  "ablation_variant": "guideline_gate_no_top_end_guard_v1",
+  "variants": {
+    "baseline": {
+      "id": "baseline",
+      "role": "baseline",
+      "hypothesis": "Frozen pre-improvement prompt.",
+      "pooled": {
+        "total": 100,
+        "overall_accuracy": 0.59,
+        "normalized_mean_absolute_error": 0.25142857142857145,
+        "valid_label_rate": 0.99,
+        "total_correct": 59
+      }
+    },
+    "guideline_gate_v1": {
+      "id": "guideline_gate_v1",
+      "role": "winner",
+      "hypothesis": "Current default hidden guideline gate.",
+      "pooled": {
+        "total": 100,
+        "overall_accuracy": 0.65,
+        "normalized_mean_absolute_error": 0.15571428571428572,
+        "valid_label_rate": 1.0,
+        "total_correct": 65
+      }
+    },
+    "guideline_gate_almost_boundary_v1": {
+      "id": "guideline_gate_almost_boundary_v1",
+      "role": "candidate",
+      "hypothesis": "Tighten the `almost` versus `partial` boundary so only one-gap proofs get `almost`.",
+      "pooled": {
+        "total": 100,
+        "overall_accuracy": 0.7,
+        "normalized_mean_absolute_error": 0.14142857142857143,
+        "valid_label_rate": 1.0,
+        "total_correct": 70
+      }
+    },
+    "guideline_gate_no_top_end_guard_v1": {
+      "id": "guideline_gate_no_top_end_guard_v1",
+      "role": "ablation_only",
+      "hypothesis": "Remove only the top-end full-credit restraint while keeping the tightened almost-boundary rule.",
+      "pooled": {
+        "total": 100,
+        "overall_accuracy": 0.67,
+        "normalized_mean_absolute_error": 0.15428571428571428,
+        "valid_label_rate": 1.0,
+        "total_correct": 67
+      }
+    }
+  },
+  "pairwise_comparisons": {
+    "baseline_to_guideline_gate_v1": {
+      "from": "baseline",
+      "to": "guideline_gate_v1",
+      "from_metrics": {
+        "total": 100,
+        "overall_accuracy": 0.59,
+        "normalized_mean_absolute_error": 0.25142857142857145,
+        "valid_label_rate": 0.99,
+        "total_correct": 59
+      },
+      "to_metrics": {
+        "total": 100,
+        "overall_accuracy": 0.65,
+        "normalized_mean_absolute_error": 0.15571428571428572,
+        "valid_label_rate": 1.0,
+        "total_correct": 65
+      },
+      "accuracy_delta": 0.06000000000000005,
+      "mae_delta": -0.09571428571428572,
+      "valid_label_delta": 0.010000000000000009,
+      "bootstrap": {
+        "accuracy_delta_mean": 0.06,
+        "mae_delta_mean": -0.09571428571428571,
+        "accuracy_delta_ci": [
+          0.0,
+          0.13
+        ],
+        "mae_delta_ci": [
+          -0.15714285714285714,
+          -0.04
+        ]
+      },
+      "changed": {
+        "changed_count": 20,
+        "better": 9,
+        "worse": 3,
+        "same_score": 8,
+        "examples": [
+          {
+            "grading_id": "GB-0311",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0658",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "almost"
+          },
+          {
+            "grading_id": "GB-0367",
+            "ground_truth": "partial",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "almost"
+          },
+          {
+            "grading_id": "GB-0234",
+            "ground_truth": "partial",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0789",
+            "ground_truth": "partial",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0335",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0333",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0040",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0993",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0492",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0340",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0796",
+            "ground_truth": "partial",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0343",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "almost"
+          },
+          {
+            "grading_id": "GB-0841",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0433",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0231",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0688",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0696",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0456",
+            "ground_truth": "almost",
+            "baseline_prediction": "almost",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0172",
+            "ground_truth": "partial",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          }
+        ]
+      },
+      "transitions": {
+        "selected_transitions": {
+          "correct->almost": 3,
+          "correct->partial": 6,
+          "partial->incorrect": 1,
+          "incorrect->partial": 3,
+          "partial->almost": 0,
+          "almost->correct": 1
+        },
+        "all_transitions": {
+          "correct->incorrect": 4,
+          "correct->almost": 3,
+          "correct->partial": 6,
+          "incorrect->partial": 3,
+          "->partial": 1,
+          "incorrect->correct": 1,
+          "partial->incorrect": 1,
+          "almost->correct": 1
+        },
+        "corrected_overcredit_count": 13
+      }
+    },
+    "guideline_gate_v1_to_guideline_gate_almost_boundary_v1": {
+      "from": "guideline_gate_v1",
+      "to": "guideline_gate_almost_boundary_v1",
+      "from_metrics": {
+        "total": 100,
+        "overall_accuracy": 0.65,
+        "normalized_mean_absolute_error": 0.15571428571428572,
+        "valid_label_rate": 1.0,
+        "total_correct": 65
+      },
+      "to_metrics": {
+        "total": 100,
+        "overall_accuracy": 0.7,
+        "normalized_mean_absolute_error": 0.14142857142857143,
+        "valid_label_rate": 1.0,
+        "total_correct": 70
+      },
+      "accuracy_delta": 0.04999999999999993,
+      "mae_delta": -0.01428571428571429,
+      "valid_label_delta": 0.0,
+      "bootstrap": {
+        "accuracy_delta_mean": 0.05,
+        "mae_delta_mean": -0.014285714285714284,
+        "accuracy_delta_ci": [
+          0.01,
+          0.1
+        ],
+        "mae_delta_ci": [
+          -0.04285714285714286,
+          0.01285714285714286
+        ]
+      },
+      "changed": {
+        "changed_count": 8,
+        "better": 5,
+        "worse": 0,
+        "same_score": 3,
+        "examples": [
+          {
+            "grading_id": "GB-0994",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0658",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "almost",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0346",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0333",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0278",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0340",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0231",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0456",
+            "ground_truth": "almost",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "almost"
+          }
+        ]
+      },
+      "transitions": {
+        "selected_transitions": {
+          "correct->almost": 1,
+          "correct->partial": 1,
+          "partial->incorrect": 4,
+          "incorrect->partial": 0,
+          "partial->almost": 0,
+          "almost->correct": 0
+        },
+        "all_transitions": {
+          "partial->incorrect": 4,
+          "almost->partial": 1,
+          "correct->partial": 1,
+          "partial->correct": 1,
+          "correct->almost": 1
+        },
+        "corrected_overcredit_count": 2
+      }
+    },
+    "guideline_gate_almost_boundary_v1_to_guideline_gate_no_top_end_guard_v1": {
+      "from": "guideline_gate_almost_boundary_v1",
+      "to": "guideline_gate_no_top_end_guard_v1",
+      "from_metrics": {
+        "total": 100,
+        "overall_accuracy": 0.7,
+        "normalized_mean_absolute_error": 0.14142857142857143,
+        "valid_label_rate": 1.0,
+        "total_correct": 70
+      },
+      "to_metrics": {
+        "total": 100,
+        "overall_accuracy": 0.67,
+        "normalized_mean_absolute_error": 0.15428571428571428,
+        "valid_label_rate": 1.0,
+        "total_correct": 67
+      },
+      "accuracy_delta": -0.029999999999999916,
+      "mae_delta": 0.012857142857142845,
+      "valid_label_delta": 0.0,
+      "bootstrap": {
+        "accuracy_delta_mean": -0.03,
+        "mae_delta_mean": 0.012857142857142859,
+        "accuracy_delta_ci": [
+          -0.08,
+          0.02
+        ],
+        "mae_delta_ci": [
+          -0.03285714285714286,
+          0.06
+        ]
+      },
+      "changed": {
+        "changed_count": 11,
+        "better": 2,
+        "worse": 5,
+        "same_score": 4,
+        "examples": [
+          {
+            "grading_id": "GB-0994",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0042",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0346",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0335",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0278",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0492",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0343",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "almost",
+            "candidate_prediction": "partial"
+          },
+          {
+            "grading_id": "GB-0231",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "correct",
+            "candidate_prediction": "incorrect"
+          },
+          {
+            "grading_id": "GB-0688",
+            "ground_truth": "incorrect",
+            "baseline_prediction": "incorrect",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0456",
+            "ground_truth": "almost",
+            "baseline_prediction": "almost",
+            "candidate_prediction": "correct"
+          },
+          {
+            "grading_id": "GB-0172",
+            "ground_truth": "partial",
+            "baseline_prediction": "partial",
+            "candidate_prediction": "correct"
+          }
+        ]
+      },
+      "transitions": {
+        "selected_transitions": {
+          "correct->almost": 0,
+          "correct->partial": 1,
+          "partial->incorrect": 1,
+          "incorrect->partial": 2,
+          "partial->almost": 0,
+          "almost->correct": 1
+        },
+        "all_transitions": {
+          "incorrect->partial": 2,
+          "correct->partial": 1,
+          "partial->correct": 3,
+          "partial->incorrect": 1,
+          "almost->partial": 1,
+          "correct->incorrect": 1,
+          "incorrect->correct": 1,
+          "almost->correct": 1
+        },
+        "corrected_overcredit_count": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+study_type: final_imo_lockbox_test
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+parser_version: frozen proofgrade parser and grading policy package
+dataset_path: domains/imo/gradingbench_filtered_100_test.csv
+subset_policy: one-time full 100-example untouched test evaluation
+output_root: analysis/outputs/final_imo_lockbox_test
+summary_path: analysis/outputs/final_imo_lockbox_test/lockbox_summary.json
+report_path: artifacts/release/v0.1.0/generated/final_imo_lockbox_test.md
+save_interval: 5
+bootstrap_iterations: 10000
+bootstrap_seed: 0
+baseline_variant: baseline
+winner_variant: guideline_gate_almost_boundary_v1
+variants:
+  - id: baseline
+    role: baseline
+    env_value: baseline
+    hypothesis: Frozen pre-improvement prompt.
+  - id: guideline_gate_almost_boundary_v1
+    role: final_winner
+    env_value: guideline_gate_almost_boundary_v1
+    hypothesis: Frozen final winner from the validation lock.

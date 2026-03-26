@@ -1,0 +1,5 @@
+(Incorrect) No meaningful progress toward proving the inequality.
+(Partial) Observes a correct equivalent reformulation such as the sum-of-squares identity.
+(Almost) Gives the right reformulation and argument but leaves a small algebra gap.
+(Complete) Correctly derives or invokes an equivalent nonnegative sum-of-squares form and concludes the proof.
+

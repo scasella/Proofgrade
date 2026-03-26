@@ -1,0 +1,3 @@
+{"problem": "Let a+b+c=0. Prove a^2+b^2+c^2 >= ab+bc+ca.", "solution": "Use (a-b)^2+(b-c)^2+(c-a)^2 >= 0.", "grading_guidelines": "(Partial) notices the sum of squares identity. (Almost) small algebra gap. (Complete) correct use of the identity.", "student_answer": "I use the identity (a-b)^2+(b-c)^2+(c-a)^2 >= 0, so the claim follows."}
+{"problem": "Let a+b+c=0. Prove a^2+b^2+c^2 >= ab+bc+ca.", "solution": "Use (a-b)^2+(b-c)^2+(c-a)^2 >= 0.", "grading_guidelines": "(Partial) notices the sum of squares identity. (Almost) small algebra gap. (Complete) correct use of the identity.", "student_answer": "Since squares are nonnegative, the statement is obvious."}
+

@@ -1,0 +1,63 @@
+name: failure_overlap_selection
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+output_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/failure_overlap_study
+atlas_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/failure_overlap_study/failure_overlap_atlas.json
+selection_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/failure_overlap_study/source_selection.json
+source_selection_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/failure_overlap_source_selection.md
+generated_allowlist_dir: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/failure_overlap_study/allowlists
+eval_model: gemini-3-flash-preview
+num_workers: 1
+save_interval: 5
+candidate_sources:
+  - domain: paper_review
+    subset: _filtered_100_val
+    num_samples: 25
+    task_type: binary paper acceptance classification
+    approximate_cost: low
+    source_metric_key: overall_accuracy
+    plausibility_note: Shared classification path with explicit label parsing, but the last transferred win was source-specific reviewer-output cleanup.
+  - domain: imo_proof
+    subset: ""
+    num_samples: 25
+    task_type: free-form math proof generation scored downstream
+    approximate_cost: medium
+    source_metric_key: structured_prediction_rate
+    plausibility_note: Shares the math/problem-solving context and the same task-agent/LLM stack, but uses the generic output contract instead of the grading contract.
+excluded_domains:
+  - domain: search_arena
+    reason: The harness expects domains/search_arena/dataset{subset}.csv, and that dataset csv is not present in this workspace.
+  - domain: imo_proof_grading
+    reason: It has no native source-side ground-truth target and serves as an evaluator rather than a benchmark source task.
+  - domain: polyglot
+    reason: Different harness/evaluator shape and not a cheap direct task-agent comparison for this study.
+  - domain: balrog
+    reason: Environment-control domain, not a comparable direct prediction task.
+  - domain: genesis
+    reason: More expensive robotic-control domain and out of scope for this cheap overlap study.
+target:
+  domain: imo_grading
+  subset: _filtered_100_val
+  num_samples: 25
+  reuse_output_dir: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline/outputs/first_transfer_baseline_val25
+overlap:
+  min_meaningful_score: 1.5
+  symptom_weights:
+    truncated_json_with_visible_label: 2.5
+    truncated_json_with_visible_response: 2.5
+    unclosed_json_object: 1.0
+    extra_text_before_json: 1.5
+    plain_text_without_json: 1.5
+    missing_label_field: 2.0
+    missing_response_field: 2.0
+    generic_schema_key_mismatch_label_instead_of_response: 2.5
+    tool_scaffold_echo: 1.0
+    overlong_output: 0.5
+surface_defaults:
+  forbidden_path_prefixes:
+    - outputs/
+    - analysis/outputs/
+    - reports/
+    - docs/
+    - configs/
+    - domains/paper_review/
+    - domains/imo/

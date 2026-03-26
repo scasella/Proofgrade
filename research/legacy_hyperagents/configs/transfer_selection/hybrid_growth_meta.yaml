@@ -1,0 +1,7 @@
+selector: hybrid_growth_meta
+top_k: 1
+seed: 42
+target_domain: imo_grading
+weights:
+  growth: 0.7
+  meta_density: 0.3

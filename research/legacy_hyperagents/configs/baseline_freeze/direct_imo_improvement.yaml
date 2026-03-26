@@ -1,0 +1,23 @@
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+baseline_variant: baseline
+output_root: analysis/outputs/direct_imo_improvement
+frozen_baseline_run: analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline/outputs/first_transfer_baseline_val25
+train:
+  subset: _filtered_100_train
+  num_samples: 25
+  num_workers: 1
+  save_interval: 5
+val:
+  subset: _filtered_100_val
+  num_samples: 25
+  num_workers: 1
+  save_interval: 5
+variants:
+  - id: strict_rubric_v1
+    hypothesis: Tighten full-credit requirements so unsupported complete-sounding proofs are downgraded.
+  - id: guideline_gate_v1
+    hypothesis: Force the model to map work through the grading-guideline ladder before choosing a label.
+  - id: missing_piece_v1
+    hypothesis: Naming the decisive missing requirement reduces over-crediting.

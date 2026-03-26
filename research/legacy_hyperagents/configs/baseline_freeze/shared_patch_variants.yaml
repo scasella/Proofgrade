@@ -1,0 +1,63 @@
+name: shared_patch_design_sprint
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+allowlist_path: /Users/scasella/Downloads/hyperagents/HyperAgents/configs/baseline_freeze/shared_path_allowlist.yaml
+output_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_patch_sprint
+failure_atlas_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_patch_sprint/failure_atlas.json
+design_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/shared_patch_design_sprint.md
+benchmark_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/shared_patch_benchmark.md
+transfer_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/shared_patch_transfer_result.md
+source_domain: paper_review
+source_subset: _filtered_100_val
+source_screen_samples: 10
+source_confirm_samples: 25
+target_domain: imo_grading
+target_subset: _filtered_100_val
+target_smoke_samples: 10
+target_confirm_samples: 25
+eval_model: gemini-3-flash-preview
+num_workers: 1
+save_interval: 5
+baseline:
+  source_screen_report_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_path_transfer/source_baseline/shared_path_source_baseline_val10/report.json
+  source_screen_predictions_csv: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_path_transfer/source_baseline/shared_path_source_baseline_val10/predictions.csv
+  source_confirm_report_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_path_transfer/source_baseline/shared_path_source_baseline_val25/report.json
+  source_confirm_predictions_csv: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_path_transfer/source_baseline/shared_path_source_baseline_val25/predictions.csv
+  target_confirm_report_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline/outputs/first_transfer_baseline_val25/report.json
+  target_confirm_predictions_csv: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline/outputs/first_transfer_baseline_val25/predictions.csv
+selection:
+  source_valid_label_drop_tolerance: 0.02
+  source_requires_accuracy_gain: true
+  transfer_top_k: 1
+variants:
+  - id: shared_truncated_json_label_salvage
+    mechanism: Recover an unambiguous label from a truncated JSON prefix.
+    changed_files:
+      - utils/prediction_contracts.py
+    changed_symbols:
+      - utils/prediction_contracts.py::_extract_json_label_candidate
+    source_hypothesis: Many invalid paper_review outputs already contain a correct label before truncation.
+    transfer_hypothesis: Any task that emits partial JSON with a visible label can benefit.
+  - id: shared_instruction_wrapper_tightening
+    mechanism: Add a shared compact-output wrapper around both task instructions.
+    changed_files:
+      - utils/prediction_contracts.py
+    changed_symbols:
+      - utils/prediction_contracts.py::build_task_instruction
+    source_hypothesis: Stronger shared output hierarchy should reduce rambling and improve completion.
+    transfer_hypothesis: Both domains use the same shared instruction dispatch path.
+  - id: shared_compact_input_format
+    mechanism: Make the shared task-input JSON more compact before it is sent to the model.
+    changed_files:
+      - utils/prediction_contracts.py
+    changed_symbols:
+      - utils/prediction_contracts.py::_format_inputs
+    source_hypothesis: A shorter prompt leaves more room for the answer and reduces formatting drift.
+    transfer_hypothesis: Both domains serialize task inputs through the same helper.
+  - id: shared_short_label_budget
+    mechanism: Tighten the shared Gemini output budget for label tasks.
+    changed_files:
+      - agent/llm.py
+    changed_symbols:
+      - agent/llm.py::_get_response_from_gemini_rest
+    source_hypothesis: Label tasks should finish with a small JSON answer instead of a long, cut-off rationale.
+    transfer_hypothesis: Both domains use the same Gemini REST request path.

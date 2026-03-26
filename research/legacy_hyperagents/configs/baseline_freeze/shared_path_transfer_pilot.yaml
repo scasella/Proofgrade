@@ -1,0 +1,16 @@
+name: shared_path_transfer_pilot
+baseline_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+output_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/shared_path_transfer/transfer_pilot
+report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/shared_path_transfer_pilot.md
+target_domain: imo_grading
+target_subset: _filtered_100_val
+smoke_num_samples: 10
+real_num_samples: 25
+eval_model: gemini-3-flash-preview
+num_workers: 1
+save_interval: 5
+negative_control:
+  enabled: true
+  run_id: first_transfer_full_val25
+  report_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent/outputs/first_transfer_full_val25/report.json
+  predictions_csv: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent/outputs/first_transfer_full_val25/predictions.csv

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install httpx
+      - name: Compile sanity
+        run: python -m py_compile proofgrade/*.py analysis/*.py tests/test_final_imo_lock.py tests/test_final_imo_release.py tests/test_proofgrade_runtime.py tests/test_proofgrade_api.py
+      - name: Unit tests
+        run: |
+          python -m unittest \
+            tests.test_final_imo_lock \
+            tests.test_final_imo_release \
+            tests.test_proofgrade_runtime \
+            tests.test_proofgrade_api
+      - name: CLI smoke
+        run: python -m proofgrade.cli version
+      - name: API import smoke
+        run: python -c "from proofgrade.api import create_app; from proofgrade.config import load_settings; create_app(load_settings('configs/runtime/default.yaml'), validate_credentials_on_startup=False)"
+      - name: Docker build smoke
+        run: docker build -t proofgrade-ci .

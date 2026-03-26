@@ -1,0 +1,5 @@
+Because $a+b+c=0$, I know this should be related to $(a-b)^2+(b-c)^2+(c-a)^2$.
+That sum is always nonnegative and expands to twice
+$a^2+b^2+c^2-ab-bc-ca$.
+Therefore the desired inequality follows.
+

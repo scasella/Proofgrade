@@ -1,0 +1,5 @@
+Let $a,b,c$ be real numbers with $a+b+c=0$. Prove that
+\[
+a^2+b^2+c^2 \geq ab+bc+ca.
+\]
+

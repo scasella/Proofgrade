@@ -1,0 +1,6 @@
+selector: descendant_growth
+top_k: 1
+seed: 42
+gamma: 0.6
+min_descendants: 3
+target_domain: imo_grading

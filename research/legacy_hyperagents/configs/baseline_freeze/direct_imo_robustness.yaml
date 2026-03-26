@@ -1,0 +1,39 @@
+study_type: robustness
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+dataset_path: domains/imo/gradingbench_filtered_100_val.csv
+output_root: analysis/outputs/direct_imo_robustness
+report_path: reports/direct_imo_robustness.md
+summary_path: analysis/outputs/direct_imo_robustness/robustness_summary.json
+parser_version: current repaired parser in utils/prediction_contracts.py
+subset_policy: four disjoint 25-example validation shards from gradingbench_filtered_100_val.csv
+save_interval: 5
+bootstrap_iterations: 10000
+bootstrap_seed: 0
+baseline_variant: baseline
+reference_variant: guideline_gate_v1
+contrast_variant: missing_piece_v1
+variants:
+  - id: baseline
+    role: baseline
+    hypothesis: Frozen pre-improvement prompt.
+  - id: guideline_gate_v1
+    role: winner
+    hypothesis: Current default hidden guideline gate.
+  - id: missing_piece_v1
+    role: contrast
+    hypothesis: Strong losing contrast from the prior sprint.
+shards:
+  - name: val_00_24
+    start: 0
+    end: 25
+  - name: val_25_49
+    start: 25
+    end: 50
+  - name: val_50_74
+    start: 50
+    end: 75
+  - name: val_75_99
+    start: 75
+    end: 100

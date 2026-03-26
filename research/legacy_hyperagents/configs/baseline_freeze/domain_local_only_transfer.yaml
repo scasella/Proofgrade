@@ -1,0 +1,13 @@
+name: domain_local_only_transfer
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+target_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent
+manifest_path: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/transfer_delta_manifest.json
+included_change_ids:
+  - utils/prediction_contracts.py:_parse_paper_review_output:1
+  - utils/prediction_contracts.py:_build_paper_review_instruction:1
+excluded_change_ids: []
+equivalent_to_existing_arm: transferred_full
+reason: Every meaningful hunk in the frozen delta is paper_review-local, so this bundle is the full transferred snapshot.
+reused_metrics_from:
+  run_id: first_transfer_full_val25
+  report_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent/outputs/first_transfer_full_val25/report.json

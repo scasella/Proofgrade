@@ -1,0 +1,21 @@
+Since $a+b+c=0$, we have
+\[
+(a+b+c)^2 = a^2+b^2+c^2+2ab+2bc+2ca = 0.
+\]
+Rearranging gives
+\[
+a^2+b^2+c^2 = -2(ab+bc+ca).
+\]
+So
+\[
+a^2+b^2+c^2-(ab+bc+ca) = -3(ab+bc+ca).
+\]
+An equivalent standard form is
+\[
+(a-b)^2+(b-c)^2+(c-a)^2 = 2(a^2+b^2+c^2-ab-bc-ca) \ge 0,
+\]
+which proves
+\[
+a^2+b^2+c^2 \ge ab+bc+ca.
+\]
+

@@ -1,0 +1,18 @@
+name: paper_review_source_delta
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+target_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent
+patch_path: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/patches/paper_review_source_delta.diff
+delta_version: paper_review_quality_delta_v1
+baseline_contract_version: shared_repaired_contract_v2
+scope:
+  includes:
+    - reviewer_style_paper_review_instruction
+    - paper_review_overall_score_fallback
+  excludes:
+    - shared_task_contract_repairs
+    - imo_grading_parser_repairs
+    - report_validity_metrics
+    - harness_model_override
+    - model_alias_normalization
+meta_only_status: unavailable
+meta_only_reason: current transfer slicing is file-level and this source delta lives in a mixed shared contract file, so a clean meta-only transfer arm is not available for this pilot.

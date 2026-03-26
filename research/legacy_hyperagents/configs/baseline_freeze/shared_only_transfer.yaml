@@ -1,0 +1,13 @@
+name: shared_only_transfer
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+target_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/transferred_full_agent
+manifest_path: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/transfer_delta_manifest.json
+included_change_ids: []
+excluded_change_ids:
+  - utils/prediction_contracts.py:_parse_paper_review_output:1
+  - utils/prediction_contracts.py:_build_paper_review_instruction:1
+equivalent_to_existing_arm: baseline
+reason: No target-reachable shared changes exist in the frozen source delta, so this bundle collapses exactly to the frozen repaired baseline.
+reused_metrics_from:
+  run_id: first_transfer_baseline_val25
+  report_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline/outputs/first_transfer_baseline_val25/report.json

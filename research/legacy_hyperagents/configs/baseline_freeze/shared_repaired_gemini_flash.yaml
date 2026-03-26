@@ -1,0 +1,21 @@
+name: shared_repaired_gemini_flash_preview
+frozen_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+task_contract_version: shared_repaired_contract_v2
+parser_version: shared_repaired_parser_v2
+model: gemini-3-flash-preview
+provider: gemini
+preview_max_output_tokens: 2048
+response_mode: application_json
+response_schema_mode: domain_aware_gemini_response_schema
+domain: imo_grading
+subset: _filtered_100_val
+num_workers: 1
+save_interval: 5
+smoke_num_samples: 10
+real_num_samples: 25
+seed: null
+seed_policy: deterministic_temperature_zero_no_seed
+notes:
+  - Keeps repaired domain-aware contracts and parser fixes.
+  - Uses Gemini structured JSON output for direct evaluation.
+  - Excludes the later paper_review reviewer-style quality delta.

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proofgrade"
+version = "0.1.0"
+description = "Frozen rubric-aware IMO proof grading engine derived from a repaired HyperAgents scaffold."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+authors = [
+  { name = "Proofgrade Contributors" }
+]
+keywords = ["proof grading", "evaluation", "rubric-aware grading", "imo"]
+dependencies = [
+  "backoff==2.2.1",
+  "fastapi==0.115.5",
+  "hydra-core==1.3.2",
+  "litellm==1.74.9",
+  "pandas==2.3.2",
+  "pydantic==2.10.6",
+  "python-dotenv==1.0.1",
+  "pyyaml==6.0.2",
+  "requests==2.32.4",
+  "uvicorn==0.34.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[project.urls]
+Homepage = "https://github.com/scasella/Proofgrade"
+Documentation = "https://github.com/scasella/Proofgrade/tree/main/docs"
+Issues = "https://github.com/scasella/Proofgrade/issues"
+
+[project.scripts]
+proofgrade = "proofgrade.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["proofgrade*"]

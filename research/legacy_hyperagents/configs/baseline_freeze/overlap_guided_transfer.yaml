@@ -1,0 +1,46 @@
+name: overlap_guided_transfer
+selection_config_path: /Users/scasella/Downloads/hyperagents/HyperAgents/configs/baseline_freeze/failure_overlap_selection.yaml
+selection_json: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/failure_overlap_study/source_selection.json
+output_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/overlap_guided_transfer
+source_patch_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/overlap_guided_source_patch.md
+transfer_report_path: /Users/scasella/Downloads/hyperagents/HyperAgents/reports/overlap_guided_transfer_result.md
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+eval_model: gemini-3-flash-preview
+num_workers: 1
+save_interval: 5
+source_screen_samples: 10
+source_confirm_samples: 25
+target_smoke_samples: 10
+target_confirm_samples: 25
+source_selection:
+  valid_label_drop_tolerance: 0.02
+  structural_success_drop_tolerance: 0.02
+patch_library:
+  - id: shared_common_wrapper_minimal_json
+    mechanism: Add one compact shared wrapper before both generic and contract task instructions.
+    symptom_tags:
+      - extra_text_before_json
+      - plain_text_without_json
+      - overlong_output
+    changed_files:
+      - utils/prediction_contracts.py
+    changed_symbols:
+      - utils/prediction_contracts.py::build_task_instruction
+  - id: shared_truncated_json_label_salvage
+    mechanism: Recover a visible label from a truncated JSON prefix on the shared parser path.
+    symptom_tags:
+      - truncated_json_with_visible_label
+      - unclosed_json_object
+    changed_files:
+      - utils/prediction_contracts.py
+    changed_symbols:
+      - utils/prediction_contracts.py::_extract_json_label_candidate
+  - id: shared_moderate_json_output_budget
+    mechanism: Cap the shared Gemini output budget for JSON-style task answers without using the aggressive short-budget clamp.
+    symptom_tags:
+      - overlong_output
+      - extra_text_before_json
+    changed_files:
+      - agent/llm.py
+    changed_symbols:
+      - agent/llm.py::_get_response_from_gemini_rest

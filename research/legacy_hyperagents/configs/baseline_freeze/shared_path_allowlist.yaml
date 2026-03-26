@@ -1,0 +1,279 @@
+version: 1
+base_root: /Users/scasella/Downloads/hyperagents/HyperAgents/analysis/outputs/first_transfer_pilot/frozen_roots/shared_repaired_baseline
+domains:
+  source: paper_review
+  target: imo_grading
+evaluation:
+  model: gemini-3-flash-preview
+  subset: _filtered_100_val
+  num_samples: 10
+  num_workers: 1
+  save_interval: 5
+policy:
+  allow_new_files: false
+  eligible_requires_shared_change: true
+  ambiguous_is_rejected: true
+noise_excludes:
+  path_prefixes:
+  - outputs/
+  - analysis/outputs/
+  - __pycache__/
+  - .pytest_cache/
+  - .mypy_cache/
+  - .ruff_cache/
+  - .venv/
+  - venv/
+  - reports/
+  - docs/
+  - configs/
+forbidden_path_prefixes:
+  source_only:
+  - domains/paper_review/
+  target_only:
+  - domains/imo/
+  reporting_only:
+  - domains/report.py
+shared_editable_symbols:
+- symbol_id: agent/llm.py::_convert_messages_for_gemini
+  path: agent/llm.py
+  symbol: _convert_messages_for_gemini
+  lines:
+  - 56
+  - 70
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm.py::_get_gemini_api_key
+  path: agent/llm.py
+  symbol: _get_gemini_api_key
+  lines:
+  - 49
+  - 53
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm.py::_get_response_from_gemini_rest
+  path: agent/llm.py
+  symbol: _get_response_from_gemini_rest
+  lines:
+  - 124
+  - 170
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm.py::_is_rest_gemini_model
+  path: agent/llm.py
+  symbol: _is_rest_gemini_model
+  lines:
+  - 45
+  - 46
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm.py::get_response_from_llm
+  path: agent/llm.py
+  symbol: get_response_from_llm
+  lines:
+  - 178
+  - 239
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm.py::normalize_model_name
+  path: agent/llm.py
+  symbol: normalize_model_name
+  lines:
+  - 41
+  - 42
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm_withtools.py::chat_with_agent
+  path: agent/llm_withtools.py
+  symbol: chat_with_agent
+  lines:
+  - 112
+  - 207
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm_withtools.py::check_for_tool_uses
+  path: agent/llm_withtools.py
+  symbol: check_for_tool_uses
+  lines:
+  - 83
+  - 101
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm_withtools.py::get_tooluse_prompt
+  path: agent/llm_withtools.py
+  symbol: get_tooluse_prompt
+  lines:
+  - 28
+  - 54
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: agent/llm_withtools.py::should_retry_tool_use
+  path: agent/llm_withtools.py
+  symbol: should_retry_tool_use
+  lines:
+  - 56
+  - 81
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: domains/harness.py::get_dataset
+  path: domains/harness.py
+  symbol: get_dataset
+  lines:
+  - 18
+  - 24
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: domains/harness.py::harness
+  path: domains/harness.py
+  symbol: harness
+  lines:
+  - 60
+  - 161
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: domains/harness.py::load_task_agent
+  path: domains/harness.py
+  symbol: load_task_agent
+  lines:
+  - 35
+  - 58
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: domains/harness.py::run_agent
+  path: domains/harness.py
+  symbol: run_agent
+  lines:
+  - 26
+  - 32
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: task_agent.py::TaskAgent.forward
+  path: task_agent.py
+  symbol: TaskAgent.forward
+  lines:
+  - 6
+  - 40
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::_canonical_label_text
+  path: utils/prediction_contracts.py
+  symbol: _canonical_label_text
+  lines:
+  - 162
+  - 166
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::_extract_json_label_candidate
+  path: utils/prediction_contracts.py
+  symbol: _extract_json_label_candidate
+  lines:
+  - 140
+  - 146
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::_extract_json_objects
+  path: utils/prediction_contracts.py
+  symbol: _extract_json_objects
+  lines:
+  - 112
+  - 137
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::_format_inputs
+  path: utils/prediction_contracts.py
+  symbol: _format_inputs
+  lines:
+  - 39
+  - 40
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::_normalize_whitespace
+  path: utils/prediction_contracts.py
+  symbol: _normalize_whitespace
+  lines:
+  - 158
+  - 159
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::build_task_instruction
+  path: utils/prediction_contracts.py
+  symbol: build_task_instruction
+  lines:
+  - 79
+  - 95
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::get_prediction_contract
+  path: utils/prediction_contracts.py
+  symbol: get_prediction_contract
+  lines:
+  - 30
+  - 31
+  reason: Executed on both paper_review and imo_grading.
+- symbol_id: utils/prediction_contracts.py::parse_prediction_output
+  path: utils/prediction_contracts.py
+  symbol: parse_prediction_output
+  lines:
+  - 98
+  - 109
+  reason: Executed on both paper_review and imo_grading.
+forbidden_symbols:
+  source_only:
+  - symbol_id: utils/prediction_contracts.py::_build_classification_instruction
+    path: utils/prediction_contracts.py
+    symbol: _build_classification_instruction
+    lines:
+    - 43
+    - 76
+    reason: Executed only on paper_review.
+  - symbol_id: utils/prediction_contracts.py::_build_paper_review_instruction
+    path: utils/prediction_contracts.py
+    symbol: _build_paper_review_instruction
+    lines:
+    - 377
+    - 387
+    reason: Executed only on paper_review.
+  - symbol_id: utils/prediction_contracts.py::_normalize_paper_review_value
+    path: utils/prediction_contracts.py
+    symbol: _normalize_paper_review_value
+    lines:
+    - 207
+    - 253
+    reason: Executed only on paper_review.
+  - symbol_id: utils/prediction_contracts.py::_parse_paper_review_output
+    path: utils/prediction_contracts.py
+    symbol: _parse_paper_review_output
+    lines:
+    - 347
+    - 357
+    reason: Executed only on paper_review.
+  target_only:
+  - symbol_id: utils/prediction_contracts.py::_build_imo_grading_instruction
+    path: utils/prediction_contracts.py
+    symbol: _build_imo_grading_instruction
+    lines:
+    - 390
+    - 417
+    reason: Executed only on imo_grading.
+  - symbol_id: utils/prediction_contracts.py::_normalize_imo_label_value
+    path: utils/prediction_contracts.py
+    symbol: _normalize_imo_label_value
+    lines:
+    - 256
+    - 326
+    reason: Executed only on imo_grading.
+  - symbol_id: utils/prediction_contracts.py::_normalize_numeric_label
+    path: utils/prediction_contracts.py
+    symbol: _normalize_numeric_label
+    lines:
+    - 169
+    - 187
+    reason: Executed only on imo_grading.
+  - symbol_id: utils/prediction_contracts.py::_parse_imo_grading_output
+    path: utils/prediction_contracts.py
+    symbol: _parse_imo_grading_output
+    lines:
+    - 360
+    - 374
+    reason: Executed only on imo_grading.
+mixed_symbols:
+- symbol_id: agent/llm.py::_infer_gemini_response_schema
+  path: agent/llm.py
+  symbol: _infer_gemini_response_schema
+  policy: ambiguous
+  reason: The function executes for both domains, but the exercised branches are domain-local
+    and there is no safe shared branch inside the traced surface.
+  blocks:
+  - block_id: imo_grading_branch
+    category: target_only
+    lines:
+    - 74
+    - 86
+  - block_id: paper_review_branch
+    category: source_only
+    lines:
+    - 87
+    - 109
+  - block_id: generic_json_branch
+    category: ambiguous
+    lines:
+    - 110
+    - 121

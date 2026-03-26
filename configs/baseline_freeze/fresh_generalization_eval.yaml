@@ -1,0 +1,38 @@
+study_type: fresh_imo_generalization
+domain: imo_grading
+model: gemini-3-flash-preview
+variant_env: HYPERAGENTS_IMO_GRADING_PROMPT_VARIANT
+parser_version: frozen proofgrade parser and grading policy package
+base_dataset_path: domains/imo/gradingbench_filtered.csv
+exclude_dataset_paths:
+  - domains/imo/gradingbench_filtered_100_train.csv
+  - domains/imo/gradingbench_filtered_100_val.csv
+  - domains/imo/gradingbench_filtered_100_test.csv
+expected_fresh_size: 512
+subset_policy: full filtered remainder after removing all 300 benchmark split examples
+fresh_set_note: Fresh responses from the same grading task family; not fresh problem IDs.
+output_root: analysis/outputs/fresh_imo_generalization
+summary_path: analysis/outputs/fresh_imo_generalization/generalization_summary.json
+report_path: artifacts/release/v0.1.0/generated/fresh_generalization_result.md
+plan_report_path: artifacts/release/v0.1.0/generated/fresh_generalization_plan.md
+next_step_report_path: artifacts/release/v0.1.0/generated/model_vs_policy_next_step.md
+num_workers: 2
+save_interval: 10
+max_attempts_per_example: 5
+retry_sleep_seconds: 2
+bootstrap_iterations: 10000
+bootstrap_seed: 0
+baseline_variant: baseline
+winner_variant: guideline_gate_almost_boundary_v1
+comparison_artifacts:
+  lockbox_summary: analysis/outputs/final_imo_lockbox_test/lockbox_summary.json
+  remaining_error_summary: analysis/outputs/final_imo_lock/final_remaining_error_summary.json
+variants:
+  - id: baseline
+    role: frozen_baseline
+    env_value: baseline
+    hypothesis: Frozen pre-improvement prompt.
+  - id: guideline_gate_almost_boundary_v1
+    role: frozen_final_winner
+    env_value: guideline_gate_almost_boundary_v1
+    hypothesis: Frozen final winner from the validation lock and lockbox test.
