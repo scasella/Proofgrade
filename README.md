@@ -1,71 +1,65 @@
 # Proofgrade
 
-`proofgrade` is a frozen, rubric-aware proof grading engine for Olympiad-style math proofs.
+Proofgrade grades Olympiad-style math proofs against an official solution and rubric.
 
-It takes four inputs:
+It is built for one job: helping a person review proofs more consistently. You give it the problem, the official solution, the grading rubric, and a student's proof. It returns one label, a short reason, and enough metadata to audit what happened.
+
+This project publishes something that is still rare in public LLM grading repos: not just a prompt, but a frozen grading engine with named policy versions, lockbox results, fresh response-level generalization evidence, a casebook, a CLI, an API, and reproducible release artifacts.
+
+Proofgrade grew out of cleanup work inside a HyperAgents-derived scaffold, but the public release is much narrower than that history. What ships here is a proof grader, not a general agent platform.
+
+## Why this matters
+
+A lot of proof-grading experiments stop at "here is a model and a prompt." That is hard to trust and hard to compare. The prompt changes, the behavior drifts, and the benchmark story gets blurry.
+
+Proofgrade is meant to fix that.
+
+It gives the community a grading line that is:
+
+- frozen at a named policy version
+- benchmarked against a clear baseline
+- checked on an untouched test set
+- checked again on 512 fresh responses from the same task family
+- packaged so another engineer can run it without reconstructing the research process
+
+That is the main contribution of this repo. It turns a promising grading setup into something inspectable, reproducible, and usable.
+
+## What the grader actually does
+
+The grader reads four inputs:
 
 - the problem
 - the official solution
 - the grading rubric
 - the student's proof
 
-and returns a grading label with a short rationale.
+It then returns one of four labels:
 
-This release is narrow on purpose. It is meant to be a serious grading engine and grading copilot, not a general autonomous agent platform. The project grew out of a repaired HyperAgents scaffold, but what ships here is a locked proof grader with a small runtime surface, reproducible benchmark evidence, and an auditable policy story.
+- `incorrect`
+- `partial`
+- `almost`
+- `correct`
 
-## Why this exists
+Along with the label, it returns a short rationale and the policy/model metadata used for the decision.
 
-Proof grading is a place where generic LLM prompting often breaks in predictable ways:
+The current release uses:
 
-- it gives full credit too easily
-- it blurs `almost` and `partial`
-- it returns output that is hard to use consistently in a real workflow
+- provider: `gemini`
+- model: `gemini-3-flash-preview`
+- default policy: `guideline_gate_almost_boundary_v1`
 
-`proofgrade` exists to turn one strong, locked grading line into something the community can actually inspect, reproduce, and use.
+This is not a custom-trained model. The improvement comes from a tighter grading policy wrapped around an off-the-shelf LLM, plus stable parsing and packaging around that policy.
 
-## What Proofgrade contributes
+## What improved
 
-What is new here is not a new base model. The core model is still an off-the-shelf LLM.
+The benchmark gain came from two concrete changes:
 
-What this project adds is:
+1. The grader became less generous with full credit.
+2. The grader got stricter about the line between `almost` and `partial`.
 
-- a **frozen grading policy** with named variants, rather than an undocumented prompt that keeps changing
-- a **real benchmark win** on `imo_grading`, not just anecdotal examples
-- a **one-time untouched lockbox test result**, so the main claim is not only based on development slices
-- a **fresh response-level generalization check** on 512 additional examples from the same task family
-- a **clear mechanism story** for the improvement:
-  - less over-generous full credit
-  - better `almost` vs `partial` calibration
-- a **usable product surface**:
-  - Python package
-  - CLI
-  - FastAPI service
-  - Docker path
-- a **reproducibility package** with frozen configs, result tables, and casebook artifacts
+That sounds small, but it matters a lot in proof grading. Many of the old errors came from giving `correct` too easily or treating an unfinished proof as nearly complete.
 
-In practical terms, this means the community gets a proof grader that is:
-
-- stronger than the baseline it started from
-- honest about what it does and does not prove
-- easy to run locally
-- easy to inspect and compare
-
-## What problem it solves
-
-Many human-in-the-loop grading workflows need a tool that can do a disciplined first pass before a person reviews edge cases. That tool needs to be:
-
-- more consistent than ad hoc prompting
-- explicit about its rubric behavior
-- stable enough to benchmark and integrate
-
-`proofgrade` is built for that role.
-
-It is especially aimed at:
-
-- researchers who want a reproducible proof-grading baseline
-- benchmark authors who want a locked evaluator rather than a moving prompt target
-- engineers building grading copilots or supervised evaluation workflows
-- contest and education teams experimenting with AI-assisted rubric-based grading
+This is why the result is easier to audit than a vague "prompt engineering win." We can point to the policy change and show the effect it had.
 
 ## Headline results
 
@@ -81,30 +75,24 @@ Valid-label rate stayed effectively perfect across the locked winner path:
 - Lockbox test: `1.00`
 - Fresh 512-response check: `0.998`
 
-In plain English:
+In plain terms, the frozen winner is right more often than the baseline, and when it is wrong it tends to miss by less.
 
-- the frozen winner is right more often than the baseline
-- when it misses, it tends to be less wrong
-- it almost always returns a usable grading label
+Here, **grading error** means how far off the grade is on average. Lower is better.
 
-Here, **grading error** means how severe the mistake is on average. Lower is better.
+Important caveat: the fresh 512-example result is fresh response-level evidence in the same task family. It is not evidence of new-problem-family generalization.
 
-Important caveat: the fresh 512-example result is **fresh response-level generalization within the same task family**, not new-problem-family generalization. Problem IDs still overlap with the benchmark line.
+## Who this is for
 
-## Why it improved
+Proofgrade is useful if you want:
 
-The gain is understandable, not mysterious.
+- a first-pass proof grader for a human-supervised workflow
+- a stable rubric-aware evaluator for research or benchmarking
+- a reproducible baseline for grading-policy experiments
+- a small service or CLI you can plug into internal grading tools
 
-Two policy changes did most of the work:
+It is not built to replace human judgment on high-stakes decisions.
 
-1. **Less over-generous full credit**
-   The grader became stricter about when `correct` is allowed.
-2. **Better top-end boundary calibration**
-   The grader became more disciplined about when a proof is truly `almost` complete versus merely `partial`.
-
-That matters because it makes the release easier to trust. This is not just “we found a better prompt somehow.” It is a more auditable grading policy with a measurable effect.
-
-## How to use Proofgrade
+## Quick start
 
 ### 1. Install
 
@@ -115,24 +103,18 @@ pip install -e .
 cp .env.example .env
 ```
 
-Then set one provider credential in your environment:
+Then add one provider key to `.env` or your shell:
 
 - `GEMINI_API_KEY`
 - or `GOOGLE_API_KEY`
 
-The published benchmark line is tied to:
-
-- provider: `gemini`
-- model: `gemini-3-flash-preview`
-- default shipped policy: `guideline_gate_almost_boundary_v1`
-
-### 2. Check the runtime
+### 2. Confirm the runtime
 
 ```bash
 proofgrade version
 ```
 
-This should show the active default model, prompt variant, package version, and git SHA when available.
+You should see the package version, default policy, provider, and model.
 
 ### 3. Grade one proof from files
 
@@ -144,7 +126,7 @@ proofgrade grade \
   --answer-file examples/student_answer.txt
 ```
 
-Example output:
+Example response:
 
 ```json
 {
@@ -159,7 +141,7 @@ Example output:
 }
 ```
 
-### 4. Grade through the API
+### 4. Run the API
 
 Start the server:
 
@@ -167,7 +149,7 @@ Start the server:
 proofgrade serve --config configs/runtime/default.yaml
 ```
 
-Then send one request:
+Send one request:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/grade \
@@ -192,9 +174,9 @@ Useful local endpoints:
 proofgrade batch-grade --input examples/batch.jsonl
 ```
 
-### 6. Reproduce the published result package
+## Reproduce the published result package
 
-Build the public tables and casebook from frozen artifacts:
+Build the public tables and casebook from the frozen release artifacts:
 
 ```bash
 PYTHONPATH=. .venv/bin/python analysis/build_imo_result_tables.py \
@@ -216,35 +198,30 @@ PYTHONPATH=. .venv/bin/python analysis/run_final_imo_lockbox_test.py \
 
 ## What ships in v0.1.0
 
-- a frozen proof-grading runtime package: [`proofgrade`](proofgrade)
-- a CLI:
-  - `proofgrade grade`
-  - `proofgrade batch-grade`
-  - `proofgrade benchmark`
-  - `proofgrade serve`
-  - `proofgrade version`
+- the `proofgrade` runtime package
+- a CLI for single grading, batch grading, benchmarking, serving, and version inspection
 - a small FastAPI service with `/health`, `/version`, `/grade`, and `/batch-grade`
 - frozen benchmark configs under [`configs/baseline_freeze`](configs/baseline_freeze)
 - curated release artifacts under [`artifacts/release/v0.1.0`](artifacts/release/v0.1.0)
-- public docs for architecture, API, deployment, reproducibility, benchmark results, and limitations
-- archived legacy research context under [`research/legacy_hyperagents`](research/legacy_hyperagents)
+- docs for API, configuration, deployment, reproducibility, benchmark results, and limitations
+- archived research context under [`research/legacy_hyperagents`](research/legacy_hyperagents)
 
-## How Proofgrade can be improved
+## How Proofgrade could improve from here
 
-The current benchmark line is locked. The next sensible improvements are not open-ended prompt tweaking.
+The current benchmark line is locked. The next sensible gains are likely to come from cleaner evaluation and stronger models, not from endless reuse of the same validation slices.
 
 The most credible next steps are:
 
 - test the same frozen policy on a stronger model
-- evaluate on a new untouched pack instead of reusing old benchmark slices
-- expand the casebook and operational guidance for human-supervised grading workflows
-- possibly try one more very narrow policy refinement only if it is justified by new untouched evidence
+- evaluate on a new untouched pack
+- expand the casebook and operational guidance for human reviewers
+- try one more narrow policy change only if new untouched evidence points to a specific boundary problem
 
-What is **not** the plan:
+What is not on the roadmap for this release line:
 
-- not reopening broad transfer claims
-- not reviving a “self-improving agent” story
-- not chasing more validation gains on the same benchmark slices
+- reopening transfer claims
+- reviving a "self-improving agent" story
+- broad prompt sweeps on the same benchmark slices
 
 ## Documentation
 
@@ -276,15 +253,15 @@ What is **not** the plan:
 
 ## What this project is not
 
-- Not a validated cross-domain transfer result
-- Not a general autonomous agent platform
-- Not a claim of fresh-problem-family generalization
-- Not a replacement for human oversight on high-stakes grading
-- Not a formal proof verifier
+- It is not a validated cross-domain transfer result.
+- It is not a general autonomous agent platform.
+- It is not a claim of fresh-problem-family generalization.
+- It is not a replacement for human oversight on important grading decisions.
+- It is not a formal proof verifier.
 
 ## Contributing and support
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md), and [SECURITY.md](SECURITY.md) before opening a pull request or reporting a problem.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md), and [SECURITY.md](SECURITY.md) before opening a pull request or reporting a problem.
 
 ## License
 
