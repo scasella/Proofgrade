@@ -1,5 +1,7 @@
 # Proofgrade
 
+**Reproducible LLM proof grading benchmark + API for Olympiad-style math.**
+
 Proofgrade grades Olympiad-style math proofs against an official solution and rubric.
 
 It is built for one job: helping a person review proofs more consistently. You give it the problem, the official solution, the grading rubric, and a student's proof. It returns one label, a short reason, and enough metadata to audit what happened.
